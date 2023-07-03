@@ -12,7 +12,7 @@
 * 컨테이너를 개별적으로 배포하기 보다는 컨테이너를 가진 파드를 배포하고 운영
 * 파드가 여러 컨테이너를 가지고 있을 경우, 모든 컨테이너는 항상 하나의 워커 노드에서 실행되며 여러 워커 노드에 걸쳐 실행되지 않는다. (Figure 3.1)
 
-![figures/figure 3.1.png](figures/figure 3.1.png)
+![figure 3.1.png](figures/figure%203.1.png)
 
 ---
 
@@ -55,7 +55,7 @@
 * 서로 다른 파드 사이에는 어떠한 NAT (Network Address Translation) 도 존재하지 않는다.
 * 일반적으로 물리 네트워크 위에 추가적인 소프트웨어 정의 네트워크 계층을 통해 달성
 
-![figures/figure 3.2.png](figures/figure 3.2.png)
+![figure 3.2.png](figures/figure%203.2.png)
 
 ---
 
@@ -76,7 +76,7 @@
 ### 파드에서 여러 컨테이너를 사용하는 경우
 * 여러 컨테이너를 단일 파드에 넣는 주된 이유는 figure 3.3 과 같이 애플리케이션이 하나의 주요 프로세스와 하나 이상의 보완 프로세스로 구성된 경우이다.
 
-![figures/figure 3.3.png](figures/figure 3.3.png)
+![figure 3.3.png](figures/figure%203.3.png)
 
 * EX)
   * 주 컨테이너 : 특정 디렉터리에서 파일을 제공하는 웹 서버
@@ -94,4 +94,4 @@
 
 * 기본적으로 특정한 이유 때문에 컨테이너를 단일 파드로 구성하는 것을 요구하지 않는다면, 분리된 파드에서 컨테이너를 실행하는 것이 좋다. (figure 3.4 참고)
 
-![figures/figure 3.4.png](figures/figure 3.4.png)
+![figure 3.4.png](figures/figure%203.4.png)

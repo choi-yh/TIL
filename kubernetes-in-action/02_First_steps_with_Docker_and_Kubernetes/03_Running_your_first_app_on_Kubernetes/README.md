@@ -34,13 +34,13 @@ minikube dashboard # minikube 대시보드
   * 각 파드는 자체 IP, 호스트 이름, 프로세스 등이 있는 논리적으로 분리된 머신
   * 각 파드는 고유한 IP 와 애플리케이션 프로세스를 실행하는 하나 이상의 컨테이너를 가진다.
 
-![img.png](figures/figure 2.5.png)
+![figure 2.5.png](figures/figure%202.5.png)
 
 ---
 
 ### 백그라운드에서 일어난 동작 이해하기
 
-![img.png](figures/figure 2.6.png)
+![figure 2.6.png](figures/figure%202.6.png)
 1. 이미지 빌드 후 도커 허브 푸시
 2. kubectl 명령어 실행 (`kubectl run kubia --image=hyooo/kubia --port=8080`)
 3. 쿠버네티스 API 서버로 REST HTTP 요청 전달
@@ -60,7 +60,7 @@ minikube dashboard # minikube 대시보드
 ## 2.3.3 시스템의 논리적인 부분
 
 ### 레플리케이션 컨트롤러, 파드, 서비스가 서로 동작하는 방식
-![img.png](figures/figure 2.7.png)
+![figure 2.7.png](figures/figure%202.7.png)
 
 1. `kubectl run` 명령 실행 
 2. 레플리케이션 컨트롤러 생성 
@@ -93,7 +93,7 @@ minikube dashboard # minikube 대시보드
 
 ### 시스템의 새로운 상태 시각화
 
-![img.png](figures/figure 2.8.png)
+![figure 2.8.png](figures/figure%202.8.png)
 
 * 하나의 레플리케이션 컨트롤러
 * 파드 인스턴스 3개가 모두 레플리케이션 컨트롤러에 의해서 관리된다.
