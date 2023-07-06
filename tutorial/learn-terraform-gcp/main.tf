@@ -38,6 +38,7 @@ resource "google_compute_network" "vpc_network" {
 resource "google_compute_instance" "vm_instance" {
   machine_type = "f1-micro"
   name         = "dante-terraform-instance"
+  tags         = ["web", "dev", "dante"]
 
   boot_disk {
     initialize_params {
