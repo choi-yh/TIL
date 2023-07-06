@@ -11,18 +11,12 @@ terraform {
 }
 
 # provider block - define provider
-variable "google_application_credentials" {
-  default = ""
-}
-variable "gcp_project" {
-  default = ""
-}
 provider "google" {
   credentials = file(var.google_application_credentials)
 
   project = var.gcp_project
-  region  = "us-central1"
-  zone    = "us-central1-c"
+  region  = var.region
+  zone    = var.zone
 }
 
 # resource blocks - define components of my infrastructure
