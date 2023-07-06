@@ -42,7 +42,7 @@ resource "google_compute_instance" "vm_instance" {
 
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-11"
+      image = "cos-cloud/cos-stable" # Google's Container-Optimized OS
     }
   }
 
