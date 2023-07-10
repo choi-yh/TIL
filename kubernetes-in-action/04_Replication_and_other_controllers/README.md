@@ -6,6 +6,14 @@
   * [4.1.3 동작 중인 라이브니스 프로브 확인](#413-동작-중인-라이브니스-프로브-확인)
   * [4.1.4 라이브니스 프로브의 추가 설정](#414-라이브니스-프로브의-추가-설정)
   * [4.1.5 효과적인 라이브니스 프로브 생성](#415-효과적인-라이브니스-프로브-생성)
+* [4.2 레플리케이션컨트롤러 소개](#42-레플리케이션컨트롤러-소개)
+  * [4.2.1 레플리케이션컨트롤러의 동작](#421-레플리케이션컨트롤러의-동작)
+  * [4.2.2 레플리케이션컨트롤러 생성](#422-레플리케이션컨트롤러-생성)
+  * [4.2.3 레플리케이션컨트롤러 작동 확인](#423-레플리케이션컨트롤러-작동-확인)
+  * [4.2.4 레플리케이션컨트롤러의 범위 안팎으로 파드 이동하기](#424-레플리케이션컨트롤러의-범위-안팎으로-파드-이동하기)
+  * [4.2.5 파드 템플릿 변경](#425-파드-템플릿-변경)
+  * [4.2.6 수평 파드 스케일링](#426-수평-파드-스케일링)
+  * [4.2.7 레플리케이션컨트롤러 삭제](#427-레플리케이션컨트롤러-삭제)
 
 ---
 
@@ -103,3 +111,125 @@ Liveness:       http-get http://:8080/ delay=0s timeout=1s period=10s #success=1
 * 애플리케이션이 다른 노드에서 재시작되도록 하려면 레플리케이션컨트롤러 등으로 파드를 관리해야 한다.
 
 ---
+
+# [4.2 레플리케이션컨트롤러 소개](#Index)
+* 레플리케이션컨트롤러는 파드 개수를 탐지하고, 항상 정해진 수의 파드를 유지한다.
+![figure 4.1.png](figures/figure%204.1.png)
+
+
+## [4.2.1 레플리케이션컨트롤러의 동작](#Index)
+* 레플리케이션컨트롤러는 파드 유형이 아니라 특정 레이블 셀렉터 (label selector)와 일치하는 파드 세트에 작동한다.
+
+### 컨트롤러 조정 루프
+![figure 4.2.png](figures/figure%204.2.png)
+
+### 레플리케이션컨트롤러의 세 가지 요소 이해
+* `label selector` : 레플리케이션컨트롤러 범위에 있는 파드 결정
+* `replica count` : 실행 할 파드의 수
+* `pod template` : 새로운 파드 레플리카를 만들 때 사용
+
+![figure 4.3.png](figures/figure%204.3.png)
+
+### 컨트롤러의 레이블 셀렉터 또는 파드 템플릿 변경의 영향 이해
+* 레이블 셀렉터나 파드 템플릿이 변경되면 레플리케이션컨트롤러는 기존 파드에 대한 관리를 중지한다.
+* 따라서 정해진 파드의 수가 맞지 않기 떄문에 새로운 파드를 생성한다.
+
+### 레플리케이션컨트롤러 사용 시 이점
+* 기존 파드가 사라지면 새 파드를 시작해 파드가 항상 실행되도록 한다.
+* 클러스터 노드에 장애가 발생하면 장애가 발생한 노드에서 실행 중인 모든 파드에 대한 교체 복제본이 생성된다.
+* 수동 또는 자동으로 파드를 쉽게 수평 확장 가능하다.
+
+
+## [4.2.2 레플리케이션컨트롤러 생성](#Index)
+
+
+## [4.2.3 레플리케이션컨트롤러 작동 확인](#Index)
+
+```markdown
+❯ kubecolor describe rc kubia
+
+Name:         kubia
+Namespace:    default
+Selector:     app=kubia
+Labels:       app=kubia
+Annotations:  <none>
+Replicas:     3 current / 3 desired # 실제 파드 수 / 의도하는 인스턴스 수
+Pods Status:  3 Running / 0 Waiting / 0 Succeeded / 0 Failed # 파드 상태별 인스턴스 수
+Pod Template:
+  Labels:  app=kubia
+  Containers:
+   kubia:
+    Image:        hyooo/kubia
+    Port:         8080/TCP
+    Host Port:    0/TCP
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
+Events: # 레플리케이션컨트롤러 관련 이벤트 - 현재까지 파드를 4개 생성했다.
+  Type    Reason            Age    From                    Message
+  ----    ------            ----   ----                    -------
+  Normal  SuccessfulCreate  2m11s  replication-controller  Created pod: kubia-tp2c2
+  Normal  SuccessfulCreate  2m11s  replication-controller  Created pod: kubia-9jbz7
+  Normal  SuccessfulCreate  2m11s  replication-controller  Created pod: kubia-z5g67
+  Normal  SuccessfulCreate  44s    replication-controller  Created pod: kubia-klkck
+```
+
+### 컨트롤러가 새로운 파드를 생성한 원인 정확히 이해하기
+* 레플리케이션컨트롤러는 파드 삭제 그 자체에 대응한 것이 아니라 **결과적인 상태 (부족한 파드 수)** 에 대응하는 것
+![figure 4.4.png](figures/figure%204.4.png)
+
+
+## [4.2.4 레플리케이션컨트롤러의 범위 안팎으로 파드 이동하기](#Index)
+* 레플리케이션컨트롤러는 레이블 셀렉터와 일치하는 파드만 관리한다.
+
+### 레플리케이션컨트롤러가 관리하는 파드에 레이블 추가
+```markdown
+❯ kubecolor get pods
+
+NAME          READY   STATUS    RESTARTS   AGE
+kubia-9jbz7   1/1     Running   0          7m39s
+kubia-klkck   1/1     Running   0          6m12s
+kubia-tp2c2   1/1     Running   0          7m39s
+```
+```shell
+kubectl label pod kubia-tp2c2 type=special
+kubecolor get pods --show-labels
+kubectl label pod kubia-tp2c2 app=foo --overwrite
+kubecolor get pods -L app
+```
+
+![figure 4.5.png](figures/figure%204.5.png)
+
+### 레플리케이션컨트롤러의 레이블 셀렉터 변경
+* Q) 파드의 레이블을 변경하는 대신 레플리케이션컨트롤러의 레이블 셀렉터를 수정하면 어떻게 될까?
+  * Me) 수정된 레이블 셀렉터로 파드를 다시 생성하지 않을까?
+  * Author) 모든 파드가 레플리케이션컨트롤러의 범위를 벗어나게 되기 때문에 세 개의 새로운 파드를 생성하게 될 것이다.
+
+
+## [4.2.5 파드 템플릿 변경](#Index)
+* 기존 파드를 수정하려면 해당 파드를 삭제하고 레플리케이션컨트롤러가 새 템플릿을 기반으로 새 파드로 교체하도록 해야 한다.
+![figure 4.6.png](figures/figure%204.6.png)
+1. 파드 템플릿 변경
+2. 기존 파드 삭제
+3. 새로운 파드 템플릿으로 rc가 파드 생성
+
+
+## [4.2.6 수평 파드 스케일링](#Index)
+* 파드 수를 늘리거나 줄이는 것은 레플리케이션컨트롤러 리소스의 *replicas* 필드 값을 변경하면 된다.
+
+### 레플리케이션컨트롤러 스케일 업 & 다운 하기
+```shell
+kubectl scale rc kubia --replicas=10 # 스케일업
+kubectl edit rc kubia # edit command 를 통해 replicas 값을 변경해준다.
+kubectl scale rc kubia --replicas=3 # 스케일 다운
+```
+
+`kubectl scale` 명령은 쿠버네티스에게 무언가를 하라고 알려주는 게 아니라 레플리케이션컨트롤러의 의도하는 상태 (desired states) 를 선언적으로 변경 한다는 것이 훨씬 명확해 보인다.
+
+### 스케일링에 대한 선언적 접근 방법 이해
+* 쿠버네티스에게 무엇을 어떻게 하라고 말하는게 아니라 의도하는 상태를 지정할 뿐이다.
+
+
+### [4.2.7 레플리케이션컨트롤러 삭제](#Index)
+![figure 4.7.png](figures/figure%204.7.png)
+* 레플리케이션컨트롤러만 삭제하고 파드는 삭제하지 않기
