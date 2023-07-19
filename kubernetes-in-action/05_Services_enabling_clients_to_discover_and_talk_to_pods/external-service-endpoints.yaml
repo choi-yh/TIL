@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: external-service # 엔드포인트 오브젝트명은 서비스 이름과 일치해야 한다.
+subsets:
+  - addresses: # 서비스가 연결을 전달할 엔드포인트의 IP
+      - ip: 11.11.11.11
+      - ip: 22.22.22.22
+    ports:
+      - port: 80 # 엔드포인트 대상 포트
