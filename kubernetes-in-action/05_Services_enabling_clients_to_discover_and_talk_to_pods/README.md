@@ -11,6 +11,11 @@
   * [5.3.1 노드포트 서비스 사용](#531-노드포트-서비스-사용)
   * [5.3.2 외부 로드밸런서로 서비스 노출](#532-외부-로드밸런서로-서비스-노출)
   * [5.3.3 외부 연결의 특성 이해](#533-외부-연결의-특성-이해)
+* [5.4 인그레스 리소스로 서비스 외부 노출](#54-인그레스-리소스로-서비스-외부-노출)
+  * [5.4.1 인그레스 리소스 생성](#541-인그레스-리소스-생성)
+  * [5.4.2 인그레스로 서비스 액세스](#542-인그레스로-서비스-액세스)
+  * [5.4.3 하나의 인그레스로 여러 서비스 노출](#543-하나의-인그레스로-여러-서비스-노출)
+  * [5.4.4 TLS 트래픽을 처리하도록 인그레스 구성](#544-tls-트래픽을-처리하도록-인그레스-구성)
 
 
 ---
@@ -272,3 +277,154 @@ kubia-loadbalancer   LoadBalancer   10.97.224.198   <pending>     80:32280/TCP  
 
 
 --- 
+
+# [5.4 인그레스 리소스로 서비스 외부 노출](#Index)
+
+### 인그레스가 필요한 이유
+* 로드밸런서 서비스는 자신의 공용 IP 주소를 가진 로드밸런서가 필요
+* 인그레스는 한 IP 주소로 수십 개의 서비스에 접근이 가능하도록 지원한다.
+* 인그레스는 네트워크 스택의 애플리케이션 계층(HTTP)에서 작동하며, 서비스가 할 수 없는 쿠키 기반 세션 어피니티 등과 같은 기능을 제공할 수 있다.
+
+![figure 5.9.png](figures/figure%205.9.png)
+
+### 인그레스 컨트롤러가 필요한 경우
+* 인그레스 리소스를 작동시키려면 클러스터에 인그레스 컨트롤러를 실행해야 한다.
+```shell
+❯ kubecolor get pods --all-namespaces
+NAMESPACE              NAME                                        READY   STATUS      RESTARTS        AGE
+ingress-nginx          ingress-nginx-admission-create-gr9vx        0/1     Completed   0               42s
+ingress-nginx          ingress-nginx-admission-patch-wrh4w         0/1     Completed   0               42s
+ingress-nginx          ingress-nginx-controller-6cc5ccb977-stkd5   0/1     Running     0               42s
+```
+
+
+## [5.4.1 인그레스 리소스 생성](#Index)
+* `kubia-ingress.yaml`
+
+
+## [5.4.2 인그레스로 서비스 액세스](#Index)
+
+### 인그레스의 IP 주소 얻기
+```shell
+❯ kubecolor get ingresses
+NAME    CLASS   HOSTS               ADDRESS        PORTS     AGE
+kubia   nginx   kubia.example.com   192.168.49.2   80, 443   16m
+```
+
+### 인그레스 컨트롤러가 구성된 호스트의 IP 를 인그레스 엔드포인트로 지정
+
+### 인그레스로 파드 액세스
+
+### 인그레스 동작 방식
+1. 클라이언트에서 _kubia.example.com_ DNS 조회 후 DNS 서버가 인그레스 컨트롤러 IP 반환
+2. 클라이언트는 HTTP 요청을 인그레스 컨트롤러로 전송. host 헤더에 _kubia.example.com_ 지정
+3. 인그레스 컨트롤러는 헤더에서 클라이언트가 액세스하려는 서비스를 결정
+   1. 서비스와 관련된 엔드포인트 오브젝트로 파드 IP 조회
+   2. 클라이언트 요청을 파드에 전달
+
+![figure 5.10.png](figures/figure%205.10.png)
+
+
+## [5.4.3 하나의 인그레스로 여러 서비스 노출](#Index)
+
+### 동일한 호스트의 다른 경로로 여러 서비스 매핑
+```yaml
+- host: kubia.example.com
+  http:
+    paths:
+    - path: /kubia
+      backend:
+        serviceName: kubia
+        servicePort: 80
+    - path: /bar
+      backend:
+        serviceName: kubia
+        servicePort: 80
+```
+
+### 서로 다른 호스트로 서로 다른 서비스 매핑
+```yaml
+spec:
+  rules:
+  - host: foo.example.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: foo
+          servicePort: 80
+  - host: bar.example.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: bar
+          servicePort: 80
+```
+
+
+## [5.4.4 TLS 트래픽을 처리하도록 인그레스 구성](#Index)
+
+### 인그레스를 위한 TLS 인증서 생성
+* 클라이언트와 컨트롤러 간의 통신은 암호화되지만 컨트롤러와 백엔드 파드 간의 통신은 암호화되지 않는다.
+* 파드는 HTTP 트래픽만 허용하고, 인그레스에서 TLS 와 관련된 모든 것을 처리하도록 한다.
+  * 이 경우 인증서와 개인 키를 인그레스에 첨부해야 한다.
+  * _secret_ 에 저장하며 인그레스 매니페스트에서 참조한다.
+
+```shell
+# 개인키
+❯ openssl genrsa -out tls.key 2048
+
+# 인증서
+❯ openssl req -new -x509 -key tls.key -out tls.cert -days 360 -subj /CN=kubia.example.com
+
+# 두 파일로 시크릿 생성
+❯ kubectl create secret tls tls-secret --cert=tls.cert --key=tls.key
+secret/tls-secret created
+
+❯ kubectl get secret
+NAME         TYPE                DATA   AGE
+tls-secret   kubernetes.io/tls   2      93s
+```
+
+* `kubia-ingress-tls.yaml`
+
+```shell
+❯ kubecolor get ingress kubia -o yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{},"name":"kubia","namespace":"default"},"spec":{"rules":[{"host":"kubia.example.com","http":{"paths":[{"backend":{"service":{"name":"kubia-nodeport","port":{"number":80}}},"path":"/","pathType":"Prefix"}]}}],"tls":[{"hosts":["kubia.example.com"],"secretName":"tls-secret"}]}}
+  creationTimestamp: "2023-07-19T12:48:00Z"
+  generation: 2
+  name: kubia
+  namespace: default
+  resourceVersion: "214333"
+  uid: 5f42edec-09a5-4944-bcd8-00c6c85bbf36
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: kubia.example.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: kubia-nodeport
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - kubia.example.com
+    secretName: tls-secret
+status:
+  loadBalancer:
+    ingress:
+    - ip: 192.168.49.2
+```
+
+
+---
