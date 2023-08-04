@@ -25,7 +25,14 @@ resource "google_container_cluster" "primary" {
   name = "dante-tf-gke-cluster"
 
   remove_default_node_pool = true
-  initial_node_count       = 3
+  initial_node_count       = 1
+}
+
+resource "google_container_node_pool" "primary_preemptible_nodes" {
+  name = "dante-tf-node-pool"
+  cluster = google_container_cluster.primary.name
+  node_count = 3
+
 
   node_config {
     machine_type = "e2-small"
