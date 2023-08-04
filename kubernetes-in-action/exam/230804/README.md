@@ -11,6 +11,11 @@ kubectl create namespace exam-dante
 # Create a new deployment {your-name}-deployment --image={your-image} --replicas=2 of namespaces exam-{your-name}
 kubectl create deployment dante-deployment --image=busybox --replicas=2 -n exam-dante
 
+kubectl apply -f ./exam3.yaml -n exam-dante
+kubectl get deploy -n exam-dante
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+dante-deployment   2/2     2            2           36s
+
 # Exam 4 - check
 # Print the names of all deployments in the exam-{your_name} namespace in the following format:
 # DEPLOYMENT CONTAINER_IMAGE READY_REPLICAS NAMESPACE
