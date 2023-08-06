@@ -21,6 +21,10 @@ dante-deployment   2/2     2            2           36s
 # DEPLOYMENT CONTAINER_IMAGE READY_REPLICAS NAMESPACE
 kubectl get deploy -n exam-dante
 
+kubectl get deploy -n exam-dante -o custom-columns=DEPLOYMENT:.metadata.name,CONTAINER_IMAGE:.spec.template.spec.containers.image,READY_REPLICAS:.spec.replicas,NAMESPACE:.metadata.namespace
+DEPLOYMENT         CONTAINER_IMAGE   READY_REPLICAS   NAMESPACE
+dante-deployment   <none>            2                exam-dante
+
 # Exam 5
 # Create a new deployment called nginx-deploy, with image nginx:1.16 and 1 replica. Record the version. 
 # Next upgrade the deployment to version 1.17 using rolling update. 
