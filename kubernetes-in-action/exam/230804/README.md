@@ -32,6 +32,18 @@ dante-deployment   <none>            2                exam-dante
 kubectl create deploy nginx-deploy -n exam-dante --image=nginx:1.16 --replicas=1
 kubectl set image deployment/nginx-deploy nginx=nginx:1.17 -n exam-dante
 
+kubectl apply -f ./exam5_nginx1_16.yaml -n exam-dante
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-deploy       1/1     1            1           15s
+
+kubectl set image deploy/nginx-deploy -n exam-dante nginx=nginx:1.17
+
+kubectl rollout history deploy/nginx-deploy -n exam-dante
+deployment.apps/nginx-deploy
+REVISION  CHANGE-CAUSE
+1         <none>
+2         <none>
+
 # Exam 6
 # Create a new service "web-application" :
 # Name: web-application; Type: NodePort; port: 8080; nodePort: 30083; selector: simple-webapp; targetPort: 8080;
