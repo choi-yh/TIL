@@ -49,6 +49,11 @@ REVISION  CHANGE-CAUSE
 # Name: web-application; Type: NodePort; port: 8080; nodePort: 30083; selector: simple-webapp; targetPort: 8080;
 kubectl apply -f ./exam6.yaml -n exam-dante
 
+kubectl get services -n exam-dante
+NAME              TYPE       CLUSTER-IP    EXTERNAL-IP   PORT(S)          AGE
+web-application   NodePort   10.3.247.69   <none>        8081:30083/TCP   9s
+
+
 # Exam 7
 # Create a service {your-name}-service to expose the messaging application within the cluster on port 9090
 
