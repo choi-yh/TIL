@@ -80,6 +80,18 @@ kubectl apply -f ./exam8_deploy_configmaps_volume.yaml -n exam-dante
 
 # Exam 9
 # Access your pod and make a file and print "Hello World! to "hello.txt" files.
+kubectl get pods -n exam-dante
+NAME                                READY   STATUS    RESTARTS   AGE
+dante-deploy-5dd4d4d6c9-vxn84       1/1     Running   0          13m
+dante-deployment-57d4cf5785-c5k5k   1/1     Running   0          3d19h
+dante-deployment-57d4cf5785-vtxqg   1/1     Running   0          3d19h
+nginx-deploy-7df54cf9fd-9fdjq       1/1     Running   0          22h
+
+kubectl exec dante-deploy-5dd4d4d6c9-vxn84 -n exam-dante -i -t /bin/bash
+touch hello.txt
+echo "Hello World!" > hello.txt
+cat hello.txt
+exit
 
 
 # Exam 10
