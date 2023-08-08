@@ -56,6 +56,13 @@ web-application   NodePort   10.3.247.69   <none>        8081:30083/TCP   9s
 
 # Exam 7
 # Create a service {your-name}-service to expose the messaging application within the cluster on port 9090
+kubectl apply -f ./exam7.yaml -n exam-dante
+service/dante-service created
+
+kubectl get svc -n exam-dante
+NAME              TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
+dante-service     ClusterIP   10.3.242.157   <none>        9090/TCP         5s
+web-application   NodePort    10.3.247.69    <none>        8081:30083/TCP   12h
 
 
 # Exam 8

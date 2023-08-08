@@ -4,8 +4,6 @@ metadata:
   name: dante-service
 spec:
   selector:
-    name: simple-webapp
-  type: NodePort
+    name: messaging-webapp
   ports:
-    - port: 8081
-      targetPort: 8081
+    - port: 9090
