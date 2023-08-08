@@ -67,9 +67,15 @@ web-application   NodePort    10.3.247.69    <none>        8081:30083/TCP   12h
 
 # Exam 8
 # Create a deployment named {your-name}-deployment using a pod {your-name}-pod of the image {your-image} with 2 replicas with yaml.
+kubectl apply -f ./exam8_deploy.yaml -n exam-dante
+
 # Change Replica count from 2 to 1 at yaml file and update your original deployment.
+kubectl apply -f ./exam8_deploy_replicas_1.yaml -n exam-dante
+
 # Setting config-map as a volume of pod config-map key=value
 # hello=world drink=good happy=work
+kubectl apply -f ./exam8_configmaps.yaml -n exam-dante
+kubectl apply -f ./exam8_deploy_configmaps_volume.yaml -n exam-dante
 
 
 # Exam 9
