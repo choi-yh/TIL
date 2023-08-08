@@ -3,9 +3,11 @@
 # Get the list of nodes in JSON format and store it in a file at {your-folder}/json-{your-name}.json
 kubectl get nodes -o json > /Users/younghyo/Projects/k8s-guide/kubernetes-in-action/exam/230804/json-dante.json
 
+
 # Exam2
 # Create Namespace exam-{your-name}
 kubectl create namespace exam-dante
+
 
 # Exam 3
 # Create a new deployment {your-name}-deployment --image={your-image} --replicas=2 of namespaces exam-{your-name}
@@ -16,6 +18,7 @@ kubectl get deploy -n exam-dante
 NAME               READY   UP-TO-DATE   AVAILABLE   AGE
 dante-deployment   2/2     2            2           36s
 
+
 # Exam 4 - check
 # Print the names of all deployments in the exam-{your_name} namespace in the following format:
 # DEPLOYMENT CONTAINER_IMAGE READY_REPLICAS NAMESPACE
@@ -24,6 +27,7 @@ kubectl get deploy -n exam-dante
 kubectl get deploy -n exam-dante -o custom-columns=DEPLOYMENT:.metadata.name,CONTAINER_IMAGE:.spec.template.spec.containers.image,READY_REPLICAS:.spec.replicas,NAMESPACE:.metadata.namespace
 DEPLOYMENT         CONTAINER_IMAGE   READY_REPLICAS   NAMESPACE
 dante-deployment   <none>            2                exam-dante
+
 
 # Exam 5
 # Create a new deployment called nginx-deploy, with image nginx:1.16 and 1 replica. Record the version. 
@@ -43,6 +47,7 @@ deployment.apps/nginx-deploy
 REVISION  CHANGE-CAUSE
 1         <none>
 2         <none>
+
 
 # Exam 6
 # Create a new service "web-application" :
@@ -96,5 +101,10 @@ exit
 
 # Exam 10
 # Create a pod myapp-pod and the use an initContainer that uses the busybox image and sleeps for 20 seconds
+kubectl apply -f ./exam10.yaml -n exam-dante
+
+kubectl logs myapp-pod -n exam-dante -f
+Defaulted container "busybox" out of: busybox, init-busybox (init)
+Error from server (BadRequest): container "busybox" in pod "myapp-pod" is waiting to start: PodInitializing
 
 ```

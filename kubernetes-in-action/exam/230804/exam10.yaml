@@ -1,0 +1,13 @@
+# Create a pod myapp-pod and the use an initContainer that uses the busybox image and sleeps for 20 seconds
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+spec:
+  containers:
+  - name: busybox
+    image: busybox:1.28
+  initContainers:
+  - name: init-busybox
+    image: busybox:1.28
+    command: ['sleep 20']
