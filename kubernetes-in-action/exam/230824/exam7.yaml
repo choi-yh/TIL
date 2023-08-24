@@ -1,0 +1,17 @@
+# Change the Image version back to 1.17.1 for the pod you just updated and observe the changes
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis-dante-exam6
+  namespace: exam-dante
+spec:
+  containers:
+    - name: redis-dante
+      image: redis:1.17.1
+      volumeMounts:
+        - mountPath: "/redis/dante"
+          name: redis-dante-exam6-pv
+  volumes:
+    - name: redis-dante-exam6-pv
+      persistentVolumeClaim:
+        claimName: dante-claim

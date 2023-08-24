@@ -1,0 +1,14 @@
+# Create an nginx pod and set an env value as 'var1=val1'. Check the env value existence within the pod.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-dante
+spec:
+  containers:
+    - name: nginx
+      image: nginx:1.14.2
+      ports:
+        - containerPort: 80
+      env:
+        - name: var1 # Notice that the case is different here
+          value: val1
