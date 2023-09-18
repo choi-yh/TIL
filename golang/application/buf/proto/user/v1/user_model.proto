@@ -4,7 +4,7 @@ package user.v1;
 
 import "google/protobuf/timestamp.proto";
 
-option go_package = "github.com/choi-yh/example-golang/buf/proto/user.v1";
+option go_package = "github.com/choi-yh/golang/buf/proto/user.v1";
 
 message User {
   int32 id = 1;

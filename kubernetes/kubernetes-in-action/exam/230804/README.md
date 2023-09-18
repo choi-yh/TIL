@@ -1,7 +1,7 @@
 ```shell
 # Exam1 - check
 # Get the list of nodes in JSON format and store it in a file at {your-folder}/json-{your-name}.json
-kubectl get nodes -o json > /Users/younghyo/Projects/k8s-guide/kubernetes-in-action/exam/230804/json-dante.json
+kubectl get nodes -o json > /Users/younghyo/Projects/kubernetes/kubernetes-in-action/exam/230804/json-dante.json
 
 
 # Exam2
