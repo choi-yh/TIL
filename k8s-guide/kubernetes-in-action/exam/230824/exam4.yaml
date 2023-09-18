@@ -1,0 +1,12 @@
+# Create a Pod with three busy box containers with commands
+# "ls; sleep 3600;", "echo Hello World; sleep 3600;" and
+# "echo this is the third container; sleep 3600" respectively and check the status
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox-dante-exam4
+spec:
+  containers:
+    - name: busybox-dante
+      image: busybox
+      command: [ 'ls; sleep 3600', 'echo Hello World; sleep 3600', 'echo this is the third container; sleep 3600' ]

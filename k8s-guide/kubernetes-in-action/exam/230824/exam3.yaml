@@ -1,0 +1,28 @@
+# Create a Pod with main container busybox and which executes this
+# "while true; do echo `Hi I am from Main container' >> /var/log/index.html; sleep 5; done"
+# and with sidecar container with nginx image which exposes on port 80.
+# Use emptyDir Volume and mount this volume on path /var/log for busybox and on path /usr/share/nginx/html for nginx container.
+# Verify both containers are running.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox-dante
+spec:
+  containers:
+    - name: busybox-dante
+      image: busybox
+      command: [ 'sh', '-c', 'while true; do echo "Hi I am from Main container" >> /var/log/index.html; sleep 5; done' ]
+      volumeMounts:
+        - name: log
+          mountPath: /var/log
+  initContainers:
+    - name: nginx-sidecar
+      image: nginx:1.14.2
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - name: log
+          mountPath: /var/log/index.html
+  volumes:
+    - name: log
+      emptyDir: { }

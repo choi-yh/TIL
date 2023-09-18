@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-service
+spec:
+  type: ExternalName # 서비스 유형이 ExternalName 으로 설정됨
+  externalName: someapi.somecompany.com # 실제 서비스의 정규화된 도메인 이름 (FQDN)
+  ports:
+    - port: 80

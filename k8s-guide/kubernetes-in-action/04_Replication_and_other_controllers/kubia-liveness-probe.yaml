@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubia-liveness
+spec:
+  containers:
+    - name: kubia
+      image: luksa/kubia-unhealthy # 약간 문제가 있는 애플리케이션을 포함한 이미지
+      livenessProbe:
+        httpGet:
+          port: 8080
+          path: / # HTTP 요청 경로

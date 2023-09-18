@@ -1,0 +1,12 @@
+# Create the nginx pod with version 1.17.4 and expose it on port 80
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-dante-exam9
+  namespace: exam-dante
+spec:
+  containers:
+    - name: nginx
+      image: nginx:1.17.4
+      ports:
+        - containerPort: 80

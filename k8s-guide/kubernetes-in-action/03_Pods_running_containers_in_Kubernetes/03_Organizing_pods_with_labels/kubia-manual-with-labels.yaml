@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubia-manual-v2
+  labels: # 레이블 두 개를 파드에 붙인다.
+    creation_method: manual
+    env: prod
+spec:
+  containers:
+    - name: kubia
+      image: hyooo/kubia
+      ports:
+        - containerPort: 8080
+          protocol: TCP

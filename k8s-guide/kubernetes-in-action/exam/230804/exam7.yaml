@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dante-service
+spec:
+  selector:
+    name: messaging-webapp
+  ports:
+    - port: 9090

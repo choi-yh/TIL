@@ -1,0 +1,19 @@
+# Create a redis pod, and have it use a non-persistent storage Note:
+# In exam, you will have access to kubernetes.io site,
+# Refer : https://kubernetes.io/docs/tasks/configure-pod-container/configurevolume-storage
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis-dante-exam6
+  namespace: exam-dante
+spec:
+  containers:
+    - name: redis-dante
+      image: redis
+      volumeMounts:
+        - mountPath: "/redis/dante"
+          name: redis-dante-exam6-pv
+  volumes:
+    - name: redis-dante-exam6-pv
+      persistentVolumeClaim:
+        claimName: dante-claim
