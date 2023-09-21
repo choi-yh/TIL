@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: exam7
+  namespace: exam-dante
+spec:
+  containers:
+    - name: busybox
+      image: busybox
+      command: ['sh', '-c', 'echo "hello word"', 'kubectl delete pod exam7 -n exam-dante']

@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-random
+spec:
+  ports:
+    - port: 80
+      targetPort: 8090
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-random
+spec:
+  selector:
+
+  template:
