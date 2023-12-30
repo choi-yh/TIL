@@ -53,12 +53,27 @@ func handleRequest(conn net.Conn) {
 	fmt.Printf("request = %v\n", request)
 
 	if method == "GET" {
-		if path == "/hello" {
+		switch path {
+		case "/hello":
 			writeResponse(conn, "Hello World")
-		} else {
+		case "/hello.do":
+			// FIXME: Need to change the way files are read
+			b, err := os.ReadFile("/Users/younghyo/Projects/TIL/golang/TIL/design_pattern/servlet/hello.html")
+			if err != nil {
+				writeErrorResponse(conn, http.StatusInternalServerError, err.Error())
+			}
+			html := string(b)
+
+			writeResponse(conn, html)
+		default:
 			writeErrorResponse(conn, http.StatusNotFound, "")
 		}
-	} else if method == "POST" {
+
+		conn.Close()
+		return
+	}
+
+	if method == "POST" {
 		contentType := parseRequestContentsType(request)
 		if !checkJSONContentType(contentType) {
 			writeErrorResponse(conn, http.StatusMethodNotAllowed, "Content-Type is mismatched")
@@ -66,16 +81,15 @@ func handleRequest(conn net.Conn) {
 		}
 
 		contents := parseRequestContents(request)
-
-		processRequestBody(contents)
-
-		//writeResponse(conn, "POST request received")
+		//processRequestBody(contents)
 		writeResponse(conn, contents)
-	} else {
-		writeErrorResponse(conn, http.StatusMethodNotAllowed, http.StatusText(http.StatusMethodNotAllowed))
+		conn.Close()
+		return
 	}
 
+	writeErrorResponse(conn, http.StatusMethodNotAllowed, http.StatusText(http.StatusMethodNotAllowed))
 	conn.Close()
+	return
 }
 
 func checkJSONContentType(contentType string) bool {
