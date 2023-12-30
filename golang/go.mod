@@ -1,4 +1,4 @@
-module github.com/choi-yh/TIL/example-golang
+module github.com/choi-yh/TIL
 
 go 1.19
 
