@@ -47,49 +47,62 @@ func handleRequest(conn net.Conn) {
 	}
 
 	request := string(buf[:n])
-
 	method, path := parseRequestLine(request)
-
 	fmt.Printf("request = %v\n", request)
 
-	if method == "GET" {
-		switch path {
-		case "/hello":
-			writeResponse(conn, "Hello World")
-		case "/hello.do":
-			// FIXME: Need to change the way files are read
-			b, err := os.ReadFile("/Users/younghyo/Projects/TIL/golang/TIL/design_pattern/servlet/hello.html")
-			if err != nil {
-				writeErrorResponse(conn, http.StatusInternalServerError, err.Error())
-			}
-			html := string(b)
-
-			writeResponse(conn, html)
-		default:
-			writeErrorResponse(conn, http.StatusNotFound, "")
-		}
-
-		conn.Close()
-		return
+	switch method {
+	case "GET":
+		handleGETRequest(conn, path)
+	case "POST":
+		handlePOSTRequest(conn, request)
+	case "PUT":
+		handlePUTRequest(conn, request)
+	case "DELETE":
+		handleDELETERequest(conn, path)
+	default:
+		writeErrorResponse(conn, http.StatusMethodNotAllowed, http.StatusText(http.StatusMethodNotAllowed))
 	}
 
-	if method == "POST" {
-		contentType := parseRequestContentsType(request)
-		if !checkJSONContentType(contentType) {
-			writeErrorResponse(conn, http.StatusMethodNotAllowed, "Content-Type is mismatched")
-			conn.Close()
-		}
-
-		contents := parseRequestContents(request)
-		//processRequestBody(contents)
-		writeResponse(conn, contents)
-		conn.Close()
-		return
-	}
-
-	writeErrorResponse(conn, http.StatusMethodNotAllowed, http.StatusText(http.StatusMethodNotAllowed))
 	conn.Close()
+}
+
+func handleGETRequest(conn net.Conn, path string) {
+	switch path {
+	case "/hello":
+		writeResponse(conn, "Hello World")
+	case "/hello.do":
+		// FIXME: Need to change the way files are read
+		b, err := os.ReadFile("/Users/younghyo/Projects/TIL/golang/TIL/design_pattern/servlet/hello.html")
+		if err != nil {
+			writeErrorResponse(conn, http.StatusInternalServerError, err.Error())
+		}
+		html := string(b)
+
+		writeResponse(conn, html)
+	default:
+		writeErrorResponse(conn, http.StatusNotFound, "")
+	}
+}
+
+func handlePOSTRequest(conn net.Conn, request string) {
+	contentType := parseRequestContentsType(request)
+	if !checkJSONContentType(contentType) {
+		writeErrorResponse(conn, http.StatusMethodNotAllowed, "Content-Type is mismatched")
+		return
+	}
+
+	contents := parseRequestContents(request)
+	//processRequestBody(contents)
+	writeResponse(conn, contents)
 	return
+}
+
+func handlePUTRequest(conn net.Conn, request string) {
+	// TODO: Implement the PUT handling logic here
+}
+
+func handleDELETERequest(conn net.Conn, path string) {
+	// TODO: Implement the DELETE handling logic here
 }
 
 func checkJSONContentType(contentType string) bool {
