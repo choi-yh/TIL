@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"strconv"
 	"strings"
 )
 
@@ -23,6 +24,10 @@ type RequestHeader struct {
 	AcceptEncoding          string
 	AcceptLanguage          string
 	Cookie                  string
+	ContentType             string
+	ContentLength           int
+
+	Contents string
 }
 
 func ParseRequestLine(request string) RequestHeader {
@@ -66,8 +71,19 @@ func ParseRequestLine(request string) RequestHeader {
 			header.AcceptLanguage = s[1]
 		case "Cookie":
 			header.Cookie = s[1]
+		case "Content-Type":
+			header.ContentType = s[1]
+		case "Content-Length":
+			i, err := strconv.Atoi(s[1])
+			if err != nil {
+				i = 0
+			}
+			header.ContentLength = i
 		}
 	}
+
+	s := strings.Split(request, "\r\n\r\n")
+	header.Contents = s[1]
 
 	return header
 }

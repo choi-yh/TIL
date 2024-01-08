@@ -29,7 +29,7 @@ func HandleRequest(conn net.Conn) {
 	case "GET":
 		HandleGETRequest(conn, header.Path)
 	case "POST":
-		HandlePOSTRequest(conn, request)
+		HandlePOSTRequest(conn, header)
 	case "PUT":
 		HandlePUTRequest(conn, request)
 	case "DELETE":
