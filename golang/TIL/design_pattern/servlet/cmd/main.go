@@ -2,13 +2,10 @@ package main
 
 import (
 	"fmt"
-	"io"
 	"net"
-	"net/http"
 	"os"
-	"strings"
 
-	"github.com/pkg/errors"
+	"github.com/choi-yh/TIL/TIL/design_pattern/servlet/handler"
 )
 
 func main() {
@@ -31,137 +28,6 @@ func main() {
 			continue
 		}
 
-		go handleRequest(conn)
+		go handler.HandleRequest(conn)
 	}
-}
-
-func handleRequest(conn net.Conn) {
-	buf := make([]byte, 1024)
-
-	n, err := conn.Read(buf)
-	if err != nil {
-		if errors.Is(err, io.EOF) {
-			return
-		}
-		fmt.Print(err.Error())
-	}
-
-	request := string(buf[:n])
-	method, path := parseRequestLine(request)
-	fmt.Printf("request = %v\n", request)
-
-	switch method {
-	case "GET":
-		handleGETRequest(conn, path)
-	case "POST":
-		handlePOSTRequest(conn, request)
-	case "PUT":
-		handlePUTRequest(conn, request)
-	case "DELETE":
-		handleDELETERequest(conn, path)
-	default:
-		writeErrorResponse(conn, http.StatusMethodNotAllowed, http.StatusText(http.StatusMethodNotAllowed))
-	}
-
-	conn.Close()
-}
-
-func handleGETRequest(conn net.Conn, path string) {
-	switch path {
-	case "/hello":
-		writeResponse(conn, "Hello World")
-	case "/hello.do":
-		// FIXME: Need to change the way files are read
-		b, err := os.ReadFile("/Users/younghyo/Projects/TIL/golang/TIL/design_pattern/servlet/hello.html")
-		if err != nil {
-			writeErrorResponse(conn, http.StatusInternalServerError, err.Error())
-		}
-		html := string(b)
-
-		writeResponse(conn, html)
-	default:
-		writeErrorResponse(conn, http.StatusNotFound, "")
-	}
-}
-
-func handlePOSTRequest(conn net.Conn, request string) {
-	contentType := parseRequestContentsType(request)
-	if !checkJSONContentType(contentType) {
-		writeErrorResponse(conn, http.StatusMethodNotAllowed, "Content-Type is mismatched")
-		return
-	}
-
-	contents := parseRequestContents(request)
-	//processRequestBody(contents)
-	writeResponse(conn, contents)
-	return
-}
-
-func handlePUTRequest(conn net.Conn, request string) {
-	// TODO: Implement the PUT handling logic here
-}
-
-func handleDELETERequest(conn net.Conn, path string) {
-	// TODO: Implement the DELETE handling logic here
-}
-
-func checkJSONContentType(contentType string) bool {
-	return contentType == "application/json"
-}
-
-func parseRequestContentsType(request string) string {
-	s := strings.Split(request, "\r\n")
-	for _, v := range s {
-		if strings.Contains(v, "Content-Type") {
-			ss := strings.Split(v, ": ")
-			return ss[1]
-		}
-	}
-
-	return ""
-}
-
-func processRequestBody(contents string) {
-	fmt.Printf("Request body = %v", contents)
-}
-
-func parseRequestContents(request string) string {
-	s := strings.Split(request, "\r\n\r\n")
-
-	return s[1]
-}
-
-func writeErrorResponse(conn net.Conn, found int, message string) {
-	fmt.Fprintf(conn, "HTTP/1.1 %d %s\r\n", found, http.StatusText(found))
-	fmt.Fprintf(conn, "Server: dante-server\r\n")
-
-	fmt.Fprintf(conn, "\n")
-	if len(message) != 0 {
-		fmt.Fprintf(conn, message)
-	} else {
-		fmt.Fprintf(conn, "Content-Type: text/plain\r\n")
-	}
-}
-
-func writeResponse(conn net.Conn, s string) {
-	fmt.Fprintf(conn, "HTTP/1.1 %d %s\r\n", http.StatusOK, http.StatusText(http.StatusOK))
-	fmt.Fprintf(conn, "Server: dante-server\r\n")
-	fmt.Fprintf(conn, "Content-Length: %d\r\n", len(s))
-
-	fmt.Fprintf(conn, "\n")
-	fmt.Fprintf(conn, s)
-}
-
-func parseRequestLine(request string) (string, string) {
-	s := strings.Split(request, "\r\n")
-
-	var httpInfos []string
-	for _, v := range s {
-		if strings.Contains(v, "HTTP") {
-			httpInfos = strings.Split(v, " ")
-			break
-		}
-	}
-
-	return httpInfos[0], httpInfos[1]
 }
