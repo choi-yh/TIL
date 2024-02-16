@@ -83,3 +83,4 @@ fabric.properties
 ### custom
 question.md
 .memo
+.env
