@@ -20,7 +20,6 @@ func HandlePOSTRequest(conn net.Conn, header internal.RequestHeader) {
 
 	//processRequestBody(contents)
 	internal.WriteResponse(conn, header.Contents)
-	return
 }
 
 func checkJSONContentType(contentType string) bool {
