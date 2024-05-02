@@ -7,8 +7,8 @@ import (
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/choi-yh/example-golang/application/user/model"
-	"github.com/choi-yh/example-golang/util"
+	"github.com/choi-yh/TIL/golang/application/user/model"
+	"github.com/choi-yh/TIL/golang/util"
 	"github.com/stretchr/testify/assert"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

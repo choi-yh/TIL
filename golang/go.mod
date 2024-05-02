@@ -1,11 +1,10 @@
-module github.com/choi-yh/TIL
+module github.com/choi-yh/TIL/golang
 
-go 1.19
+go 1.22
 
 require (
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.31.0-20230824200731-b9b8148056b9.1
 	github.com/DATA-DOG/go-sqlmock v1.5.0
-	github.com/choi-yh/example-golang v0.0.0-20230914145007-57361092f7a7
 	github.com/elastic/go-elasticsearch/v8 v8.10.1
 	github.com/gin-gonic/gin v1.9.1
 	github.com/google/uuid v1.3.0

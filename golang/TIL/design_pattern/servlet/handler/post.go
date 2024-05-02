@@ -5,7 +5,7 @@ import (
 	"net"
 	"net/http"
 
-	"github.com/choi-yh/TIL/TIL/design_pattern/servlet/internal"
+	"github.com/choi-yh/TIL/golang/TIL/design_pattern/servlet/internal"
 )
 
 func HandlePOSTRequest(conn net.Conn, header internal.RequestHeader) {

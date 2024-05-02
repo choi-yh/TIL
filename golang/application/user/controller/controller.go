@@ -3,9 +3,9 @@ package controller
 import (
 	"context"
 
-	"github.com/choi-yh/example-golang/application/buf/gen/go/proto/user/v1"
-	"github.com/choi-yh/example-golang/application/user/model"
-	"github.com/choi-yh/example-golang/application/user/service"
+	"github.com/choi-yh/TIL/golang/application/buf/gen/go/proto/user/v1"
+	"github.com/choi-yh/TIL/golang/application/user/model"
+	"github.com/choi-yh/TIL/golang/application/user/service"
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )

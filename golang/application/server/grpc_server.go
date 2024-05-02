@@ -4,7 +4,7 @@ import (
 	"log"
 	"net"
 
-	"github.com/choi-yh/example-golang/application/internal/constants"
+	"github.com/choi-yh/TIL/golang/application/internal/constants"
 	"google.golang.org/grpc"
 )
 

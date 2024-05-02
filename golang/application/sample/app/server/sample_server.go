@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	sample "github.com/choi-yh/TIL/application/sample/protos/sample"
+	"github.com/choi-yh/TIL/golang/application/sample/protos/sample"
 )
 
 type SampleServer struct {

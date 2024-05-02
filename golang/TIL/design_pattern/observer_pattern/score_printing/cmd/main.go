@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	score_printing2 "github.com/choi-yh/example-golang/TIL/design_pattern/observer_pattern/score_printing"
+	score_printing2 "github.com/choi-yh/TIL/golang/TIL/design_pattern/observer_pattern/score_printing"
 )
 
 func main() {

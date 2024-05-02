@@ -5,7 +5,7 @@ import (
 	"net"
 	"os"
 
-	"github.com/choi-yh/TIL/TIL/design_pattern/servlet/handler"
+	"github.com/choi-yh/TIL/golang/TIL/design_pattern/servlet/handler"
 )
 
 func main() {

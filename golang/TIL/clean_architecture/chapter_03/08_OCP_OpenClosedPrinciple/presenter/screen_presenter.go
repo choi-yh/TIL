@@ -1,7 +1,7 @@
 package presenter
 
 import (
-	"github.com/choi-yh/example-golang/TIL/clean_architecture/chapter_03/08_OCP_OpenClosedPrinciple/view"
+	"github.com/choi-yh/TIL/golang/TIL/clean_architecture/chapter_03/08_OCP_OpenClosedPrinciple/view"
 )
 
 type ScreenPresenter struct {

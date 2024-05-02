@@ -1,7 +1,7 @@
 package dialog
 
 import (
-	button2 "github.com/choi-yh/example-golang/TIL/design_pattern/creational_pattern/factory_method/button"
+	button2 "github.com/choi-yh/TIL/golang/TIL/design_pattern/creational_pattern/factory_method/button"
 )
 
 type WindowsDialog struct {
