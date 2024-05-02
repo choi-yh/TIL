@@ -1,0 +1,66 @@
+run:
+  timeout: 5m
+  # Allow multiple parallel golangci-lint instances running.
+  # If false, golangci-lint acquires file lock on start.
+  # Default: false
+  allow-parallel-runners: true
+# output configuration options
+output:
+  # Sort results by the order defined in `sort-order`.
+  # Default: false
+  sort-results: true
+  # Order to use when sorting results.
+  # Require `sort-results` to `true`.
+  # Possible values: `file`, `linter`, and `severity`.
+  #
+  # If the severity values are inside the following list, they are ordered in this order:
+  #   1. error
+  #   2. warning
+  #   3. high
+  #   4. medium
+  #   5. low
+  # Either they are sorted alphabetically.
+  #
+  # Default: ["file"]
+  sort-order:
+  - severity
+  - linter
+  - file # filepath, line, and column.
+  show-stats: true
+# All available settings of specific linters.
+linters-settings:
+# See the dedicated "linters-settings" documentation section.
+linters:
+  # Enable specific linter
+  # https://golangci-lint.run/usage/linters/#enabled-by-default
+  enable:
+    - errcheck # Errcheck is a program for checking for unchecked errors in Go code.
+    - gosimple # Linter for Go source code that specializes in simplifying code.
+    - govet # Vet examines Go source code and reports suspicious constructs.
+    - ineffassign # Detects when assignments to existing variables are not used.
+    - staticcheck # It's a set of rules from staticcheck.
+    - unused # Checks Go code for unused constants, variables, functions and types.
+  disable-all: true
+issues:
+  exclude-rules:
+  # Exclude some linters from running on tests files.
+  - path: _test\.go
+    linters:
+    - gocyclo
+    - errcheck
+    - dupl
+    - gosec
+  # Run some linter only for test files by excluding its issues for everything else.
+  - path-except: _test\.go
+    linters:
+    - forbidigo
+  # Exclude some `staticcheck` messages.
+  - linters:
+    - staticcheck
+    text: "SA9003:"
+  # Exclude `lll` issues for long lines with `go:generate`.
+  - linters:
+    - lll
+    source: "^//go:generate "
+severity:
+  default-severity: error
