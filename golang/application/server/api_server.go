@@ -5,8 +5,8 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/choi-yh/TIL/application/internal/constants"
 	userv1 "github.com/choi-yh/example-golang/application/buf/gen/go/proto/user/v1"
-	"github.com/choi-yh/example-golang/application/internal/constants"
 	"github.com/gin-gonic/gin"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
