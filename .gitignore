@@ -84,3 +84,5 @@ fabric.properties
 question.md
 .memo
 .env
+*.crt
+*.pub
