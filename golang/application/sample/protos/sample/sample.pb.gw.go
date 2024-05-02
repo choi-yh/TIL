@@ -2,11 +2,11 @@
 // source: sample.proto
 
 /*
-Package example_golang is a reverse proxy.
+Package sample is a reverse proxy.
 
 It translates gRPC into RESTful JSON APIs.
 */
-package example_golang
+package sample
 
 import (
 	"context"

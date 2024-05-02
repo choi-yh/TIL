@@ -57,7 +57,7 @@ func TestRepository_CreateUser(t *testing.T) {
 		Email:     "test@test.com",
 		Name:      "test_name",
 		Phone:     "",
-		CreatedAt: util.GetNowPtr(),
+		CreatedAt: util.GetNow(),
 	}
 
 	mock.ExpectBegin()

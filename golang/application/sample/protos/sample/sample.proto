@@ -1,6 +1,6 @@
 syntax = "proto3";
 package sample;
-option go_package = "github.com/choi-yh/TIL/golang";
+option go_package = "github.com/choi-yh/TIL/golang/application/sample/protos/sample";
 
 import "google/api/annotations.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
