@@ -23,10 +23,10 @@ func RegisterServer(srv *grpc.Server) {
 
 func (s *Server) SignUp(ctx context.Context, request *user_v1.SignUpRequest) (*user_v1.SignUpResponse, error) {
 	user, err := s.svc.SignUp(ctx, model.SignUpParam{
-		Email:    request.Email,
-		Password: request.Password,
-		Name:     request.Name,
-		Phone:    request.Phone,
+		Email:    request.GetEmail(),
+		Password: request.GetPassword(),
+		Name:     request.GetName(),
+		Phone:    request.GetPhone(),
 	})
 	if err != nil {
 		return nil, err

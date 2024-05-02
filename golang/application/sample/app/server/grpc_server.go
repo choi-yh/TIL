@@ -4,7 +4,7 @@ import (
 	"log"
 	"net"
 
-	samplepb "github.com/choi-yh/TIL/golang/application/sample/protos/sample"
+	"github.com/choi-yh/TIL/golang/application/sample/protos/sample"
 	"google.golang.org/grpc"
 )
 
@@ -21,7 +21,7 @@ func NewGrpcServer() GrpcServer {
 }
 
 func (s GrpcServer) Run() {
-	samplepb.RegisterSampleServiceServer(s.server, &SampleServer{}) // Register SampleService on Grpc Server
+	sample.RegisterSampleServiceServer(s.server, &SampleServer{}) // Register SampleService on Grpc Server
 
 	lis, err := net.Listen("tcp", "localhost:"+grpcServerPort)
 	if err != nil {
