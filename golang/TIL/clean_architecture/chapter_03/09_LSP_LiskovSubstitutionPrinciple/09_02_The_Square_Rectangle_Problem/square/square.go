@@ -1,7 +1,7 @@
 package square
 
 import (
-	"github.com/choi-yh/example-golang/TIL/clean_architecture/chapter_03/09_LSP_LiskovSubstitutionPrinciple/09_02_The_Square_Rectangle_Problem/rectangle"
+	"github.com/choi-yh/TIL/golang/TIL/clean_architecture/chapter_03/09_LSP_LiskovSubstitutionPrinciple/09_02_The_Square_Rectangle_Problem/rectangle"
 )
 
 type Square struct {

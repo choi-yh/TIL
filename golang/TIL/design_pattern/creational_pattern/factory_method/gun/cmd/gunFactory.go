@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	gun2 "github.com/choi-yh/example-golang/TIL/design_pattern/creational_pattern/factory_method/gun"
+	gun2 "github.com/choi-yh/TIL/golang/TIL/design_pattern/creational_pattern/factory_method/gun"
 )
 
 func getGun(name string) (gun2.IGun, error) {

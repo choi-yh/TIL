@@ -1,7 +1,7 @@
 package server
 
 import (
-	user "github.com/choi-yh/example-golang/application/user/controller"
+	user "github.com/choi-yh/TIL/golang/application/user/controller"
 	"google.golang.org/grpc"
 )
 

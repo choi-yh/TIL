@@ -7,7 +7,7 @@ import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
 import "proto/user/v1/user_model.proto";
 
-option go_package = "github.com/choi-yh/golang/buf/proto/user.v1";
+option go_package = "github.com/choi-yh/TIL/golang/buf/proto/user.v1";
 
 service UserService {
   rpc SignUp(SignUpRequest) returns (SignUpResponse) {

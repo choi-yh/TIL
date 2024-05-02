@@ -4,7 +4,7 @@ import (
 	"log"
 	"net"
 
-	samplepb "github.com/choi-yh/example-golang/application/sample/protos/sample"
+	samplepb "github.com/choi-yh/TIL/golang/application/sample/protos/sample"
 	"google.golang.org/grpc"
 )
 

@@ -3,10 +3,10 @@ package service
 import (
 	"context"
 
-	domainModel "github.com/choi-yh/example-golang/application/domain"
-	model2 "github.com/choi-yh/example-golang/application/user/model"
-	"github.com/choi-yh/example-golang/application/user/repository/mysql"
-	"github.com/choi-yh/example-golang/util"
+	domainModel "github.com/choi-yh/TIL/golang/application/domain"
+	model2 "github.com/choi-yh/TIL/golang/application/user/model"
+	"github.com/choi-yh/TIL/golang/application/user/repository/mysql"
+	"github.com/choi-yh/TIL/golang/util"
 )
 
 type service struct {

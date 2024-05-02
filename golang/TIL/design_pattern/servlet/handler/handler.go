@@ -7,7 +7,7 @@ import (
 	"net"
 	"net/http"
 
-	"github.com/choi-yh/TIL/TIL/design_pattern/servlet/internal"
+	"github.com/choi-yh/TIL/golang/TIL/design_pattern/servlet/internal"
 )
 
 func HandleRequest(conn net.Conn) {

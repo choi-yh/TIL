@@ -1,8 +1,8 @@
 package controller
 
 import (
-	"github.com/choi-yh/example-golang/TIL/clean_architecture/chapter_03/08_OCP_OpenClosedPrinciple/interactor"
-	presenter2 "github.com/choi-yh/example-golang/TIL/clean_architecture/chapter_03/08_OCP_OpenClosedPrinciple/presenter"
+	"github.com/choi-yh/TIL/golang/TIL/clean_architecture/chapter_03/08_OCP_OpenClosedPrinciple/interactor"
+	presenter2 "github.com/choi-yh/TIL/golang/TIL/clean_architecture/chapter_03/08_OCP_OpenClosedPrinciple/presenter"
 )
 
 type FinancialReportController struct {

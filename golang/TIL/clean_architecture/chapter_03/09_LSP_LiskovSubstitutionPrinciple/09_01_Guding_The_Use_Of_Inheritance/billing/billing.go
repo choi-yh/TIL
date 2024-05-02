@@ -1,7 +1,7 @@
 package billing
 
 import (
-	"github.com/choi-yh/example-golang/TIL/clean_architecture/chapter_03/09_LSP_LiskovSubstitutionPrinciple/09_01_Guding_The_Use_Of_Inheritance/license"
+	"github.com/choi-yh/TIL/golang/TIL/clean_architecture/chapter_03/09_LSP_LiskovSubstitutionPrinciple/09_01_Guding_The_Use_Of_Inheritance/license"
 )
 
 type Billing struct {

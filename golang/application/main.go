@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/choi-yh/example-golang/application/server"
+	"github.com/choi-yh/TIL/golang/application/server"
 )
 
 func main() {

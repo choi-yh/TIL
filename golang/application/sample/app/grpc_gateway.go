@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	samplepb "github.com/choi-yh/example-golang/application/sample/protos/sample"
+	samplepb "github.com/choi-yh/TIL/golang/application/sample/protos/sample"
 	"github.com/gin-gonic/gin"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"

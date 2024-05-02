@@ -3,9 +3,9 @@ package mysql
 import (
 	"context"
 
-	domainModel "github.com/choi-yh/example-golang/application/domain"
-	"github.com/choi-yh/example-golang/application/user/model"
-	utilMysql "github.com/choi-yh/example-golang/util/database/mysql"
+	domainModel "github.com/choi-yh/TIL/golang/application/domain"
+	"github.com/choi-yh/TIL/golang/application/user/model"
+	utilMysql "github.com/choi-yh/TIL/golang/util/database/mysql"
 	"gorm.io/gorm"
 )
 
