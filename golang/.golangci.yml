@@ -18,6 +18,7 @@ linters:
     - ineffassign # Detects when assignments to existing variables are not used.
     - staticcheck # It's a set of rules from staticcheck.
     - unused # Checks Go code for unused constants, variables, functions and types.
+    - protogetter # Reports direct reads from proto message fields when getters should be used.
   disable-all: true
 #issues:
 severity:
