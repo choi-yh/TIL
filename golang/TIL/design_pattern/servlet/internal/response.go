@@ -7,7 +7,7 @@ import (
 )
 
 func WriteErrorResponse(conn net.Conn, found int, message string) {
-	fmt.Fprint(conn, "HTTP/1.1 %d %s\r\n", found, http.StatusText(found))
+	fmt.Fprintf(conn, "HTTP/1.1 %d %s\r\n", found, http.StatusText(found))
 	fmt.Fprint(conn, "Server: dante-server\r\n")
 
 	fmt.Fprint(conn, "\n")
@@ -19,9 +19,9 @@ func WriteErrorResponse(conn net.Conn, found int, message string) {
 }
 
 func WriteResponse(conn net.Conn, s string) {
-	fmt.Fprint(conn, "HTTP/1.1 %d %s\r\n", http.StatusOK, http.StatusText(http.StatusOK))
+	fmt.Fprintf(conn, "HTTP/1.1 %d %s\r\n", http.StatusOK, http.StatusText(http.StatusOK))
 	fmt.Fprint(conn, "Server: dante-server\r\n")
-	fmt.Fprint(conn, "Content-Length: %d\r\n", len(s))
+	fmt.Fprintf(conn, "Content-Length: %d\r\n", len(s))
 
 	fmt.Fprint(conn, "\n")
 	fmt.Fprint(conn, s)
