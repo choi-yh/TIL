@@ -1,10 +1,10 @@
 # [level 2] 과제 진행하기 - 176962 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/176962) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/176962?language=go) 
 
 ### 성능 요약
 
-메모리: 10.7 MB, 시간: 1.59 ms
+메모리: 3.54 MB, 시간: 0.45 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 06월 17일 16:34:54
+2024년 06월 17일 17:00:58
 
 ### 문제 설명
 
