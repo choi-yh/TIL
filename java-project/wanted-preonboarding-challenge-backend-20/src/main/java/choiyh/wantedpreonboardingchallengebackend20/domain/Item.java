@@ -19,10 +19,14 @@ public class Item {
         Reserved,
         Completed
     }
+
     private Status status;
 
     private Timestamp createdAt;
     private Timestamp updatedAt;
+
+    @ManyToOne
+    private User seller;
 
     public Long getId() {
         return id;
@@ -46,5 +50,9 @@ public class Item {
 
     public Timestamp getUpdatedAt() {
         return updatedAt;
+    }
+
+    public User getSeller() {
+        return seller;
     }
 }
