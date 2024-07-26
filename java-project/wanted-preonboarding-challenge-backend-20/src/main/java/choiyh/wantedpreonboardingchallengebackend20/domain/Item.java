@@ -1,9 +1,14 @@
 package choiyh.wantedpreonboardingchallengebackend20.domain;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "wanted_item")
 public class Item {
@@ -28,31 +33,6 @@ public class Item {
     @ManyToOne
     private User seller;
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
-
-    public Timestamp getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public User getSeller() {
-        return seller;
-    }
+    @OneToOne
+    private User buyer;
 }
