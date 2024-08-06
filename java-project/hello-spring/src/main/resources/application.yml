@@ -4,8 +4,8 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${MYSQL_URL} # .env 와 EnvFile 플러그인을 사용하는데 Enable experimental integrations 옵션을 켜야 .env 가 적용된다.
     username: ${MYSQL_USER}
-    url: ${MYSQL_URL}
     password: ${MYSQL_PASSWORD}
 
   jpa:
@@ -15,4 +15,3 @@ spring:
     show-sql: true # 전송 쿼리 확인
     hibernate:
       ddl-auto: update
-#    defer-datasource-initialization: true # 테이블 생성 후 data.sql 실행 옵션
