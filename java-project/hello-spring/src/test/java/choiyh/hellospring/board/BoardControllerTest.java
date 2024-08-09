@@ -58,7 +58,7 @@ public class BoardControllerTest {
     @Test
     public void addBoardTest() throws Exception {
         // given
-        final String url = "/board";
+        final String url = "/boards";
         final String title = "제목1";
         final String content = "본문2";
         final AddBoardRequest request = new AddBoardRequest(title, content);
@@ -123,7 +123,7 @@ public class BoardControllerTest {
     @Test
     public void getBoard() throws Exception {
         // given
-        final String url = "/board/{id}";
+        final String url = "/boards/{id}";
 
         final String title = "title";
         final String content = "content";
@@ -153,7 +153,7 @@ public class BoardControllerTest {
     @Test
     public void updateBoard() throws Exception {
         // given
-        final String url = "/board/{id}";
+        final String url = "/boards/{id}";
 
         final String title = "title";
         final String content = "content";
@@ -190,7 +190,7 @@ public class BoardControllerTest {
     @Test
     public void deleteBoard() throws Exception {
         // given
-        final String url = "/board/{id}";
+        final String url = "/boards/{id}";
 
         final String title = "title";
         final String content = "content";

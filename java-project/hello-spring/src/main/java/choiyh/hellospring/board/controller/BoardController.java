@@ -1,5 +1,7 @@
-package choiyh.hellospring.board;
+package choiyh.hellospring.board.controller;
 
+import choiyh.hellospring.board.Board;
+import choiyh.hellospring.board.BoardService;
 import choiyh.hellospring.board.dto.AddBoardRequest;
 import choiyh.hellospring.board.dto.BoardResponse;
 import choiyh.hellospring.board.dto.UpdateBoardRequest;
@@ -9,8 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 @RestController
 public class BoardController {
@@ -18,33 +18,34 @@ public class BoardController {
     @Autowired
     private final BoardService boardService;
 
-    @PostMapping("/board")
+    @PostMapping("/boards")
     public ResponseEntity<Board> addBoard(@RequestBody AddBoardRequest request) {
         Board board = boardService.save(request);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(board);
     }
 
-    @GetMapping("/boards")
-    public ResponseEntity<List<BoardResponse>> findAll() {
-        List<BoardResponse> boards = boardService.findAll()
-                .stream()
-                .map(BoardResponse::new)
-                .toList();
+    // view test 를 위한 주석처리
+//    @GetMapping("/boards")
+//    public ResponseEntity<List<BoardResponse>> findAll() {
+//        List<BoardResponse> boards = boardService.findAll()
+//                .stream()
+//                .map(BoardResponse::new)
+//                .toList();
+//
+//        return ResponseEntity.status(HttpStatus.OK)
+//                .body(boards);
+//    }
 
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(boards);
-    }
+//    @GetMapping("/boards/{id}")
+//    public ResponseEntity<BoardResponse> getBoard(@PathVariable Long id) {
+//        // TODO: 없는 id 에 대한 exception handling
+//        Board board = boardService.findById(id);
+//        return ResponseEntity.status(HttpStatus.OK)
+//                .body(new BoardResponse(board));
+//    }
 
-    @GetMapping("/board/{id}")
-    public ResponseEntity<BoardResponse> getBoard(@PathVariable Long id) {
-        // TODO: 없는 id 에 대한 exception handling
-        Board board = boardService.findById(id);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(new BoardResponse(board));
-    }
-
-    @PutMapping("/board/{id}")
+    @PutMapping("/boards/{id}")
     public ResponseEntity<BoardResponse> updateBoard(
             @PathVariable Long id,
             @RequestBody UpdateBoardRequest request) {
@@ -56,7 +57,7 @@ public class BoardController {
                 .body(new BoardResponse(updateBoard));
     }
 
-    @DeleteMapping("/board/{id}")
+    @DeleteMapping("/boards/{id}")
     public ResponseEntity<Void> deleteBoard(@PathVariable Long id) {
         // TODO: 없는 id 에 대한 exception handling
         boardService.delete(id);
