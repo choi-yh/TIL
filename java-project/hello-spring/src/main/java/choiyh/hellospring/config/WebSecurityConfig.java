@@ -1,6 +1,6 @@
 package choiyh.hellospring.config;
 
-import choiyh.hellospring.user.UserDetailService;
+import choiyh.hellospring.user.service.UserDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,21 +15,19 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
-
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
-    private final UserDetailService userService;
+    private final UserDetailService userDetailService;
 
     // spring security 기능 비활성화
     // 인증, 인가를 모든 곳에 적용하지는 않는다. (일반적으로 정적 리소스에 설정)
     @Bean
     public WebSecurityCustomizer configure() {
         return (web) -> web.ignoring()
-                .requestMatchers(toH2Console())
+//                .requestMatchers(toH2Console())
                 .requestMatchers(new AntPathRequestMatcher("/static/**"));
     }
 
@@ -64,7 +62,6 @@ public class WebSecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http
             , BCryptPasswordEncoder bCryptPasswordEncoder
-            , UserDetailService userDetailService
     ) throws Exception {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailService);

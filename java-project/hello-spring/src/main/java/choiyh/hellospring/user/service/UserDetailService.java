@@ -1,5 +1,6 @@
-package choiyh.hellospring.user;
+package choiyh.hellospring.user.service;
 
+import choiyh.hellospring.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

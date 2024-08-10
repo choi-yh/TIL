@@ -26,7 +26,7 @@ public class BoardViewController {
                 .toList();
         model.addAttribute("boards", boards);
 
-        return "boardList";
+        return "board/boardList";
     }
 
     @GetMapping("/boards/{id}")
@@ -34,7 +34,7 @@ public class BoardViewController {
         Board board = boardService.findById(id);
         model.addAttribute("board", new BoardViewResponse(board));
 
-        return "board";
+        return "board/board";
     }
 
     @GetMapping("/new-board")
@@ -47,7 +47,7 @@ public class BoardViewController {
             model.addAttribute("board", new BoardViewResponse(board));
         }
 
-        return "newBoard";
+        return "board/newBoard";
     }
 
 }
