@@ -15,3 +15,7 @@ spring:
     show-sql: true # 전송 쿼리 확인
     hibernate:
       ddl-auto: update
+
+jwt:
+  issuer: choi-yh
+  secret_key: jwt-secret
