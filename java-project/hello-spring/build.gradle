@@ -50,6 +50,7 @@ dependencies {
     // test 에서 lombok 을 사용하기 위한 의존성 추가
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
 
     // UI
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
