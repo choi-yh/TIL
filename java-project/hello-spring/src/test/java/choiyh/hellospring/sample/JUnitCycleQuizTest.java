@@ -1,6 +1,5 @@
 package choiyh.hellospring.sample;
 
-import org.aspectj.lang.annotation.After;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
