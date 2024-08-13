@@ -1,4 +1,4 @@
-package choiyh.hellospring.auth;
+package choiyh.hellospring.auth.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;

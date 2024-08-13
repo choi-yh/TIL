@@ -23,6 +23,7 @@ import java.io.IOException;
         인증 객체가 저장되는 보관소.
         스레드 로컬(스레드마다 공간 할당)에 저장됨. -> 아무 곳에서나 참조 가능하고, 다른 스레드와 공유하지 않기 때문에 독립적인 사용 가능
         security context 객체를 저장하는 객체가 security context holder
+        이렇다면, 세션 기반 같은데 spring 서버가 내려가고 올라가면 사라지는 것은 아닌지?
  */
 @RequiredArgsConstructor
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
