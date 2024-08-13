@@ -1,5 +1,6 @@
-package choiyh.hellospring.auth;
+package choiyh.hellospring.auth.repository;
 
+import choiyh.hellospring.auth.domain.RefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
