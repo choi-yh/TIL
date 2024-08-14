@@ -44,6 +44,9 @@ dependencies {
     // jwt
     implementation 'io.jsonwebtoken:jjwt:0.9.1' // 자바 JWT 라이브러리
 
+    // oauth2
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
     // test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
