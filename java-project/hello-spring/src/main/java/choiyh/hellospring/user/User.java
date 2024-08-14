@@ -31,6 +31,9 @@ public class User implements UserDetails { // spring security 에 있는 UserDet
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "created_at")
     @CreatedDate
     private LocalDateTime createdAt;
@@ -40,9 +43,16 @@ public class User implements UserDetails { // spring security 에 있는 UserDet
     private LocalDateTime updatedAt;
 
     @Builder
-    public User(String email, String password, String auth) {
+    public User(String email, String password, String name) {
         this.email = email;
         this.password = password;
+        this.name = name;
+    }
+
+    public User update(String name) {
+        this.name = name;
+
+        return this;
     }
 
     // 나의 User 클래스가 spring security 의 UserDetail 객체를 상속(implements) 받아 내 애플리케이션의 인증 객체로 사용하기 때문에
