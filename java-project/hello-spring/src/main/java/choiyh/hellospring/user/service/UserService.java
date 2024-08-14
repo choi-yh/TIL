@@ -12,13 +12,14 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public Long save(AddUserRequest dto) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(); // DI cycle 발생으로 인한 새 객체 생성
+
         return userRepository.save(User.builder()
                         .email(dto.getEmail())
                         // 패스워드 인코딩용으로 등록한 빈을 사용해서 암호화
-                        .password(bCryptPasswordEncoder.encode(dto.getPassword()))
+                        .password(encoder.encode(dto.getPassword()))
                         .build()
                 )
                 .getId();
@@ -26,6 +27,11 @@ public class UserService {
 
     public User findById(Long userId) {
         return userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Unexpected user_id"));
+    }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected user_id"));
     }
 
