@@ -51,8 +51,8 @@ public class WebOAuthSecurityConfig {
                 .addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 // 토큰 재발급 URL 은 인증 없이 접근 가능하도록 설정. 나머지 URL 은 인증 필요
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(new AntPathRequestMatcher("/token")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/**")).authenticated()
+                        .requestMatchers(new AntPathRequestMatcher("/api/v1/token")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/api/**")).authenticated()
                         .anyRequest().permitAll()
                 )
                 .oauth2Login(oauth2 -> oauth2.loginPage("/login")
@@ -68,7 +68,7 @@ public class WebOAuthSecurityConfig {
                 .exceptionHandling(exceptionHandling -> exceptionHandling
                         .defaultAuthenticationEntryPointFor(
                                 new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),
-                                new AntPathRequestMatcher("/**")
+                                new AntPathRequestMatcher("/api/**")
                         ))
                 .build();
     }
