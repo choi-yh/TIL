@@ -13,7 +13,7 @@ public class UserViewController {
 
     @GetMapping("/login")
     public String login() {
-        return "user/login";
+        return "user/oauthLogin";
     }
 
 }
