@@ -7,6 +7,7 @@ import choiyh.hellospring.board.dto.UpdateBoardRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,14 +37,25 @@ public class BoardService {
         Board board = boardRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found: " + id));
 
+        authorizeBoardAuthor(board);
         board.update(request.getTitle(), request.getContent());
 
         return board;
     }
 
-
     public void delete(Long id) {
-        boardRepository.deleteById(id);
+        Board board = boardRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
+
+        authorizeBoardAuthor(board);
+        boardRepository.delete(board);
+    }
+
+    public static void authorizeBoardAuthor(Board board) {
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (!board.getAuthor().equals(userName)) {
+            throw new IllegalArgumentException("not authorized");
+        }
     }
 
 }
