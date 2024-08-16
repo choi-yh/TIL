@@ -15,12 +15,13 @@ import java.security.Principal;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("/api/v1/boards")
 public class BoardApiController {
 
     @Autowired
     private final BoardService boardService;
 
-    @PostMapping("/boards")
+    @PostMapping("/")
     public ResponseEntity<Board> addBoard(@RequestBody AddBoardRequest request, Principal principal) {
         Board board = boardService.save(request, principal.getName());
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -47,7 +48,7 @@ public class BoardApiController {
 //                .body(new BoardResponse(board));
 //    }
 
-    @PutMapping("/boards/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<BoardResponse> updateBoard(
             @PathVariable Long id,
             @RequestBody UpdateBoardRequest request) {
@@ -59,7 +60,7 @@ public class BoardApiController {
                 .body(new BoardResponse(updateBoard));
     }
 
-    @DeleteMapping("/boards/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteBoard(@PathVariable Long id) {
         // TODO: 없는 id 에 대한 exception handling
         boardService.delete(id);

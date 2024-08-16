@@ -15,7 +15,7 @@ if (deleteButton) {
             location.replace('/boards');
         }
 
-        httpRequest('DELETE', `/boards/${id}`, null, success, fail);
+        httpRequest('DELETE', `/api/v1/boards/${id}`, null, success, fail);
     });
 }
 
@@ -42,7 +42,7 @@ if (modifyButton) {
             location.replace(`/boards/${id}`);
         }
 
-        httpRequest('PUT', `/boards/${id}`, body, success, fail);
+        httpRequest('PUT', `/api/v1/boards/${id}`, body, success, fail);
     });
 }
 
@@ -67,7 +67,7 @@ if (createButton) {
             location.replace('/boards');
         };
 
-        httpRequest('POST', '/boards', body, success, fail)
+        httpRequest('POST', '/api/v1/boards', body, success, fail)
     });
 }
 
@@ -105,7 +105,7 @@ function httpRequest(method, url, body, success, fail) {
         }
         const refresh_token = getCookie('refresh_token');
         if (response.status === 401 && refresh_token) {
-            fetch('/token', {
+            fetch('/api/v1/token', {
                 method: 'POST',
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('access_token'),
