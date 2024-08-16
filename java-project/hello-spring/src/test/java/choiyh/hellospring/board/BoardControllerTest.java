@@ -2,6 +2,7 @@ package choiyh.hellospring.board;
 
 import choiyh.hellospring.board.dto.AddBoardRequest;
 import choiyh.hellospring.board.dto.UpdateBoardRequest;
+import choiyh.hellospring.board.repository.BoardRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;

@@ -13,6 +13,7 @@ public class BoardViewResponse {
     private Long id;
     private String title;
     private String content;
+    private String author;
     private LocalDateTime createdAt;
 
     public BoardViewResponse(Board board) {
@@ -20,6 +21,7 @@ public class BoardViewResponse {
         this.title = board.getTitle();
         this.content = board.getContent();
         this.createdAt = board.getCreatedAt();
+        this.author = board.getAuthor();
     }
 
 }

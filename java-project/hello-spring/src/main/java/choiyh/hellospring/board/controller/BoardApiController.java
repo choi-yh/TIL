@@ -1,7 +1,7 @@
 package choiyh.hellospring.board.controller;
 
 import choiyh.hellospring.board.Board;
-import choiyh.hellospring.board.BoardService;
+import choiyh.hellospring.board.service.BoardService;
 import choiyh.hellospring.board.dto.AddBoardRequest;
 import choiyh.hellospring.board.dto.BoardResponse;
 import choiyh.hellospring.board.dto.UpdateBoardRequest;
@@ -11,16 +11,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @RequiredArgsConstructor
 @RestController
-public class BoardController {
+public class BoardApiController {
 
     @Autowired
     private final BoardService boardService;
 
     @PostMapping("/boards")
-    public ResponseEntity<Board> addBoard(@RequestBody AddBoardRequest request) {
-        Board board = boardService.save(request);
+    public ResponseEntity<Board> addBoard(@RequestBody AddBoardRequest request, Principal principal) {
+        Board board = boardService.save(request, principal.getName());
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(board);
     }

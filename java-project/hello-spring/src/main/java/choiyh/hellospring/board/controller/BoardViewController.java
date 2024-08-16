@@ -1,7 +1,7 @@
 package choiyh.hellospring.board.controller;
 
 import choiyh.hellospring.board.Board;
-import choiyh.hellospring.board.BoardService;
+import choiyh.hellospring.board.service.BoardService;
 import choiyh.hellospring.board.dto.BoardListViewResponse;
 import choiyh.hellospring.board.dto.BoardViewResponse;
 import lombok.RequiredArgsConstructor;
