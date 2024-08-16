@@ -1,5 +1,7 @@
-package choiyh.hellospring.board;
+package choiyh.hellospring.board.service;
 
+import choiyh.hellospring.board.Board;
+import choiyh.hellospring.board.repository.BoardRepository;
 import choiyh.hellospring.board.dto.AddBoardRequest;
 import choiyh.hellospring.board.dto.UpdateBoardRequest;
 import jakarta.transaction.Transactional;
@@ -16,8 +18,8 @@ public class BoardService {
     @Autowired
     private final BoardRepository boardRepository;
 
-    public Board save(AddBoardRequest request) {
-        return boardRepository.save(request.toEntity());
+    public Board save(AddBoardRequest request, String userName) {
+        return boardRepository.save(request.toEntity(userName));
     }
 
     public List<Board> findAll() {

@@ -14,10 +14,13 @@ public class AddBoardRequest {
 
     private String content;
 
-    public Board toEntity() {
+    private String author;
+
+    public Board toEntity(String author) {
         return Board.builder()
                 .title(title)
                 .content(content)
+                .author(author)
                 .build();
     }
 }
