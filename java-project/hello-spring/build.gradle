@@ -1,0 +1,64 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.2'
+    id 'io.spring.dependency-management' version '1.1.6' // 의존성 관리
+}
+
+group = 'choi-yh'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+// 의존성을 받을 저장소 지정
+repositories {
+    mavenCentral()
+}
+
+// 개발시 필요한 의존성
+// 구성 : 의존성 형태
+/*
+    implementation: 프로젝트 코드가 컴파일 시점과 런타임에 모두 해당 라이브러리 필요할 때 사용.
+    testImplementation: 프로젝트 테스트 코드 컴파일, 실행 시 의존성 설정. 테스트 코드에서만 사용.
+    runtimeOnly: 런타임에만 필요한 의존성 지정.
+    compileOnly: 컴파일에만 필요한 의존성 지정.
+    annotationProcessor: 컴파일시 애너테이션 처리할 떄 사용하는 도구 의존성 지정
+ */
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.projectlombok:lombok'
+    implementation 'javax.xml.bind:jaxb-api:2.3.1' // XML 문서와 Java 객체 간 매핑 자동화
+
+    // database
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // spring security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6' // thymeleaf 에서 spring security 를 사용하기 위함
+    testImplementation 'org.springframework.security:spring-security-test' // spring security test
+
+    // jwt
+    implementation 'io.jsonwebtoken:jjwt:0.9.1' // 자바 JWT 라이브러리
+
+    // oauth2
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
+    // test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // test 에서 lombok 을 사용하기 위한 의존성 추가
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+
+    // UI
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
