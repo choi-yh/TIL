@@ -1,28 +1,31 @@
-import heapq
+import heapq as hq
 
 def solution(operations):
     answer = []
     
-    min_heap = []
-    max_heap = []
-    for operation in operations:
-        oper, num = operation.split(" ")
+    min_q = []
+    max_q = []
+    
+    for oper in operations:
+        command, num = oper.split(" ")
+        num = int(num)
         
-        if oper == "I":
-            heapq.heappush(min_heap, int(num))
-            heapq.heappush(max_heap, -1 * int(num))
-        else:
-            if len(min_heap) == 0:
-                continue
-            elif num == "1":
-                target = heapq.heappop(max_heap)
-                min_heap.remove(-1 * target)
-            elif num == "-1":
-                target = heapq.heappop(min_heap)
-                max_heap.remove(-1 * target)
-
+        if command == "I":
+            hq.heappush(min_q, num)
+            hq.heappush(max_q, -1 * num)
+            continue
         
-    if len(min_heap) == 0:
+        if len(max_q) == 0:
+            continue
+            
+        if num == 1:
+            m = hq.heappop(max_q)
+            min_q.remove(-1 * m)
+        elif num == -1:
+            m = hq.heappop(min_q)
+            max_q.remove(-1 * m)
+            
+    if len(max_q) == 0:
         return [0, 0]
-        
-    return [-1 * heapq.heappop(max_heap), heapq.heappop(min_heap)]
+    
+    return [-1 * hq.heappop(max_q), hq.heappop(min_q)]
