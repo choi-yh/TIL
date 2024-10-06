@@ -1,8 +1,9 @@
 def solution(n, money):
-    dp = [1] + [0] * n
+    dp = [0] * (n + 1)
     
     for m in money:
+        dp[m] += 1
         for i in range(m, n + 1):
             dp[i] += dp[i - m]
     
-    return dp[n] % 1000000007
+    return dp[n]
