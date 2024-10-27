@@ -1,12 +1,15 @@
 def solution(A, B):
     answer = 0
     
-    a = sorted(A, reverse=True)
-    b = sorted(B)
+    A.sort()
+    B.sort()
     
-    for score in a:
-        if score < b[-1]:
+    while A and B:
+        if A[-1] < B[-1]:
             answer += 1
-            b.pop()
+            A.pop()
+            B.pop()
+        else:
+            A.pop()
     
     return answer
