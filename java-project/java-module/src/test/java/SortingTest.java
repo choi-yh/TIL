@@ -18,18 +18,34 @@ class SortingTest {
     @Test
     public void bubbleSort() {
         sorting.bubbleSort();
-        assertArrayEquals(sortedArr, sorting.getArray());
+        assertArrayEquals(sortedArr, sorting.array());
     }
 
     @Test
     public void selectionSort() {
         sorting.selectionSort();
-        assertArrayEquals(sortedArr, sorting.getArray());
+        assertArrayEquals(sortedArr, sorting.array());
+    }
+
+    @Test
+    public void insertionSort() {
+        sorting.insertionSort();
+        assertArrayEquals(sortedArr, sorting.array());
     }
 
     @Test
     public void mergeSort() {
-        assertArrayEquals(sortedArr, Sorting.mergeSort(sorting.getArray()));
+        assertArrayEquals(sortedArr, Sorting.mergeSort(sorting.array()));
     }
 
+    @Test
+    public void quickSort() {
+        assertArrayEquals(sortedArr, Sorting.quickSort(sorting.array()));
+    }
+
+    @Test
+    public void quickSortInPlace() {
+        sorting.quickSortInPlace();
+        assertArrayEquals(sortedArr, sorting.array());
+    }
 }
