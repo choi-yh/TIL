@@ -119,3 +119,4 @@ question.md
 .env
 *.crt
 *.pub
+.DS_Store
